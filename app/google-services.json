@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1023600421533",
+    "firebase_url": "https://healthcare-85bf7-default-rtdb.firebaseio.com",
+    "project_id": "healthcare-85bf7",
+    "storage_bucket": "healthcare-85bf7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023600421533:android:a5a4aff79a72cfaf468274",
+        "android_client_info": {
+          "package_name": "com.verzeo.medicinemajorproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023600421533-dbdf91p4624egkdf3lpqngrlfvg4fiet.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDszt0YyKkTROx_DCNARsJAssrdKQ6zqbA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023600421533-dbdf91p4624egkdf3lpqngrlfvg4fiet.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
