@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -16,10 +17,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,16 +37,17 @@ import java.util.ArrayList;
 public class MainActivity2 extends AppCompatActivity {
     public FloatingActionButton fab;
 
+
     ImageView me,hoss,calender;
-    TextView d1,t1;
+    TextView d1,t1, text2;
     EditText nam, dose;
+    private DatabaseReference mDatabase;
+
 
     RecyclerView recyclerView;
     DatabaseReference database;
     Medicinelist medicinelist;
     ArrayList<UserHelperClass> list;
-
-
 
 
 
@@ -57,6 +63,35 @@ public class MainActivity2 extends AppCompatActivity {
         d1 = findViewById(R.id.date);
         nam = findViewById(R.id.name);
         dose = findViewById(R.id.dose);
+        text2 = findViewById(R.id.textView2);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
+//        String adr =" Adhar No.: 764456789035";
+        mDatabase.child("User").child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    if(task.getResult().exists()){
+//                        Toast.makeText(MainActivity2.this,"Successful", Toast.LENGTH_LONG).show();
+                        DataSnapshot dataSnapshot = task.getResult();
+
+                        String adr = String.valueOf(dataSnapshot.child("adhar").getValue());
+                        text2.setText("Hi Sunidhi\nAdhar No. "+adr);
+//                        Toast.makeText(MainActivity2.this,"Successful = "+adr, Toast.LENGTH_LONG).show();
+
+                    }
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+
+                }
+            }
+        });
+
+        //+ mDatabase.child("Users").child("adhar").getDatabase().toString();
 
         recyclerView = findViewById(R.id.medslist);
         database = FirebaseDatabase.getInstance().getReference("Medicine");

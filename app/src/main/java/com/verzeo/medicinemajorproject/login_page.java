@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class login_page extends AppCompatActivity {
 
@@ -28,15 +30,23 @@ public class login_page extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     Button orglog;
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
+    private FirebaseAuth fauth;
+//
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         requestWindowFeature(getWindow().FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login_page);
 
+//
         mail = findViewById(R.id.emailid);
         password = findViewById(R.id.pass);
         progressBar = findViewById(R.id.probar);

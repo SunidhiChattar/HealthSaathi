@@ -2,16 +2,25 @@ package com.verzeo.medicinemajorproject;
 
 public class UserHelperClass {
 
-     String name,dose,date,time;
+     String name,dose,date,time, adr;
 
     public UserHelperClass() {
     }
 
-    public UserHelperClass(String name, String dose, String date, String time) {
+    public UserHelperClass(String name, String dose, String date, String time, String adr) {
         this.name = name;
         this.dose = dose;
         this.date = date;
         this.time = time;
+        this.adr = adr;
+    }
+
+    public String getAdr() {
+        return adr;
+    }
+
+    public void setAdr(String adr) {
+        this.adr = adr;
     }
 
     public String getName() {

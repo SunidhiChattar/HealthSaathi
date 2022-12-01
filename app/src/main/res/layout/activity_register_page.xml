@@ -155,32 +155,22 @@
         android:textSize="20dp" />
 
     <EditText
-        android:id="@+id/docmail"
+        android:id="@+id/adhar"
         android:layout_below="@+id/confirmpass"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/galdeano"
-        android:hint="Doctor Email :"
+        android:hint="Enter Your Adhar card details: "
         android:textSize="20dp"
-        android:inputType="textEmailAddress" />
+        android:inputType="number" />
 
-    <EditText
-        android:id="@+id/attmail"
-        android:layout_below="@+id/docmail"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/galdeano"
-        android:hint="Attender Email :"
-        android:textSize="20dp"
-        android:inputType="textEmailAddress" />
 
     <Button
         android:id="@+id/registerbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/attmail"
+        android:layout_below="@+id/adhar"
         android:layout_marginLeft="70dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="70dp"

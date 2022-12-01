@@ -11,10 +11,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity {
     Animation topAnim, bottomAnim;
     ImageView cap,her;
         private static int SPLASH_SCREEN = 1500;
+
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+
 
                     Intent intent = new Intent(MainActivity.this, login_page.class);
                     startActivity(intent);

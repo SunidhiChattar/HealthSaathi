@@ -22,14 +22,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Pattern;
 
 public class register_page extends AppCompatActivity {
-
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
+    private FirebaseAuth fauth;
     private FirebaseAuth auth;
     TextView logbtn;
-    EditText email, password,confpass, phonenum, dobdob, docdoc, attender, name;
+    EditText email, password,confpass, phonenum, dobdob, adhardetails, name;
     RadioButton radiobtnpgenderselected;
     RadioGroup radiogrpgender;
     ProgressBar progressBar;
@@ -47,8 +51,7 @@ public class register_page extends AppCompatActivity {
         confpass = findViewById(R.id.confirmpass);
         phonenum = findViewById(R.id.mobilenum);
         dobdob = findViewById(R.id.dob);
-        docdoc =findViewById(R.id.docmail);
-        attender = findViewById(R.id.attmail);
+        adhardetails =findViewById(R.id.adhar);
         name = findViewById(R.id.Fname);
         logbtn = findViewById(R.id.loginbtn);
 
@@ -78,8 +81,7 @@ public class register_page extends AppCompatActivity {
                 String dateob = dobdob.getText().toString();
                 String passpass = password.getText().toString();
                 String phone = phonenum.getText().toString();
-                String doc = docdoc.getText().toString();
-                String att = attender.getText().toString();
+                String adhar = adhardetails.getText().toString();
                 String confirm = confpass.getText().toString();
                 String textgender;
 
@@ -136,18 +138,24 @@ public class register_page extends AppCompatActivity {
                     confpass.requestFocus();
                     password.clearComposingText();
                     confpass.clearComposingText();
+
+                }
+                else if(adhar.length()<12){
+                    adhardetails.setError("This isn't an Adhar number");
+                    adhardetails.requestFocus();
+
                 }
                 else{
                     textgender = radiobtnpgenderselected.getText().toString();
                     progressBar.setVisibility(View.VISIBLE);
-                    registeruser(textfname, textmail, dateob, passpass, phone, doc, att, confirm, textgender);
+                    registeruser(textfname, textmail, dateob, passpass, phone, adhar, confirm, textgender);
 
                 }
             }
         });
     }
 
-    private void registeruser(String textfname, String textmail, String dateob, String passpass, String phone, String doc, String att, String confirm, String textgender) {
+    private void registeruser(String textfname, String textmail, String dateob, String passpass, String phone, String adhar, String confirm, String textgender) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.createUserWithEmailAndPassword(textmail, passpass).addOnCompleteListener(register_page.this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -156,8 +164,13 @@ public class register_page extends AppCompatActivity {
                     Toast.makeText(register_page.this, "User Registered successfully", Toast.LENGTH_SHORT).show();
                     FirebaseUser user = auth.getCurrentUser();
 
-
                     user.sendEmailVerification();
+
+                    rootNode = FirebaseDatabase.getInstance();
+                    reference = rootNode.getReference("User");
+                    UserHelperClassUser helperClassUser= new UserHelperClassUser(textfname, phone, adhar,textmail);
+                    reference.child(auth.getCurrentUser().getUid()).setValue(helperClassUser);
+
                     Intent intent = new Intent(register_page.this, login_page.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
@@ -165,7 +178,10 @@ public class register_page extends AppCompatActivity {
                 }
             }
         });
+//
+
     }
+
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);

@@ -41,10 +41,10 @@ public class MainActivity7 extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(position == 0){
 
-                    startActivity(new Intent(MainActivity7.this, listview_open.class));
-                }
-                else if(position==1){
                     startActivity(new Intent(MainActivity7.this, dr_num2.class));
+                }
+                else if(position==6){
+                    startActivity(new Intent(MainActivity7.this, dr_num3.class));
 
                 }
                 else{

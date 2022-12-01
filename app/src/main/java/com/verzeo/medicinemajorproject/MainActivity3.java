@@ -72,7 +72,6 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
 
 
         fauth = FirebaseAuth.getInstance();
-//        fUser = fauth.getCurrentUser();
 
 
         t1 = findViewById(R.id.time);
@@ -209,7 +208,9 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                 reference = rootNode.getReference("Medicine");
 
 
-                UserHelperClass helperClass= new UserHelperClass(name,dose,date,time);
+                String adr = ""+reference.child(fauth.getCurrentUser().getProviderId());
+                //String phone = ""+reference.child(fauth.getCurrentUser().getPhoneNumber());
+                UserHelperClass helperClass= new UserHelperClass(name,dose,date,time, adr);
 
                 reference.child(fauth.getCurrentUser().getUid()).setValue(helperClass);
 
